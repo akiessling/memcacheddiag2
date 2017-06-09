@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2016-08-05T21:59:48Z" product-name="memcacheddiag2">
+		<header/>
+		<body>
+			<trans-unit id="tx_memcacheddiag2_domain_model_memcache">
+				<source>Memcache</source>
+			</trans-unit>
+			<trans-unit id="tx_memcacheddiag2_domain_model_memcache.ipaddr">
+				<source>Ipaddr</source>
+			</trans-unit>
+			
+			
+			<trans-unit id="th.ipaddr">
+				<source>Server: </source>
+			</trans-unit>
+			<trans-unit id="th.uptime">
+				<source>Uptime: </source>
+			</trans-unit>
+			<trans-unit id="th.version">
+				<source>Version: </source>
+			</trans-unit>
+			<trans-unit id="th.curr_connections">
+				<source>Current connections: </source>
+			</trans-unit>
+			<trans-unit id="th.total_connections">
+				<source>Total connections: </source>
+			</trans-unit>
+			<trans-unit id="th.cmd_get">
+				<source>Get commands: </source>
+			</trans-unit>
+			<trans-unit id="th.cmd_set">
+				<source>Set commands: </source>
+			</trans-unit>
+			<trans-unit id="th.cmd_flush">
+				<source>Flush commands: </source>
+			</trans-unit>
+			<trans-unit id="th.cmd_touch">
+				<source>Touch commands: </source>
+			</trans-unit>
+			<trans-unit id="th.get_hits">
+				<source>Get hits: </source>
+			</trans-unit>
+			<trans-unit id="th.get_misses">
+				<source>Get misses: </source>
+			</trans-unit>
+			<trans-unit id="th.delete_hits">
+				<source>Delete hits: </source>
+			</trans-unit>
+			<trans-unit id="th.delete_misses">
+				<source>Delete misses: </source>
+			</trans-unit>
+			<trans-unit id="th.bytes_read">
+				<source>Bytes read: </source>
+			</trans-unit>
+			<trans-unit id="th.bytes_written">
+				<source>Bytes written: </source>
+			</trans-unit>
+
+			<trans-unit id="th.limit_maxbytes">
+				<source>Maximum byte limit: </source>
+			</trans-unit>
+			<trans-unit id="th.curr_items">
+				<source>Current items: </source>
+			</trans-unit>
+			<trans-unit id="th.total_items">
+				<source>Total items: </source>
+			</trans-unit>
+			<trans-unit id="th.expired_unfetched">
+				<source>Expired unfetched: </source>
+			</trans-unit>
+			<trans-unit id="th.evicted_unfetched">
+				<source>Evicted unfetched: </source>
+			</trans-unit>
+			<trans-unit id="th.evictions">
+				<source>Evictions: </source>
+			</trans-unit>
+			
+			<trans-unit id="mc.days">
+				<source>days</source>
+			</trans-unit>
+			<trans-unit id="mc.hours">
+				<source>hours</source>
+			</trans-unit>
+			<trans-unit id="mc.minutes">
+				<source>minutes</source>
+			</trans-unit>
+			<trans-unit id="mc.seconds">
+				<source>seconds</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

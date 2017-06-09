@@ -1,0 +1,171 @@
+{namespace mc=JBartels\Memcacheddiag2\ViewHelpers}
+
+<f:layout name="Default" />
+
+This Template is responsible for creating a table of Memcache objects.
+
+<f:section name="content">
+<h1>Listing for Memcache</h1>
+
+<f:flashMessages />
+
+
+<f:if condition="{memcaches -> f:count()}==0">
+   <f:then>
+      <p>Keine Memcache-Server konfiguriert.</p>
+    </f:then>
+	<f:else>
+		<table class="tx_memcacheddiag2" >
+
+			<tr>
+				<th><f:translate key="th.ipaddr" /></th>
+				<f:for each="{memcaches}" as="memcache" key="ipaddr">
+					<td>{ipaddr}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.uptime" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td><mc:duration>{memcache.uptime}</mc:duration></td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.version" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.version}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.curr_connections" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.curr_connections}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.total_connections" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.total_connections}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.cmd_get" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.cmd_get}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.cmd_set" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.cmd_set}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.cmd_flush" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.cmd_flush}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.cmd_touch" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.cmd_touch}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.get_hits" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.get_hits}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.get_misses" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.get_misses}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.delete_hits" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.delete_hits}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.delete_misses" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.delete_misses}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.bytes_read" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td><f:format.bytes decimals="1">{memcache.bytes_read}</f:format.bytes></td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.bytes_written" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td><f:format.bytes decimals="1">{memcache.bytes_written}</f:format.bytes></td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.limit_maxbytes" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td><f:format.bytes decimals="1">{memcache.limit_maxbytes}</f:format.bytes></td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.curr_items" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.curr_items}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.total_items" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.total_items}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.expired_unfetched" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.expired_unfetched}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.evicted_unfetched" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.evicted_unfetched}</td>
+				</f:for>
+			</tr>
+
+			<tr>
+				<th><f:translate key="th.evictions" /></th>
+				<f:for each="{memcaches}" as="memcache">
+					<td>{memcache.evictions}</td>
+				</f:for>
+			</tr>
+
+		</table>
+	</f:else>
+</f:if>
+
+</f:section>
