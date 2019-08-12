@@ -15,15 +15,15 @@
 .. role::   php(code)
 
 
-EXT: MemcachedDiag
-==================
+EXT: MemcachedDiag2
+===================
 
-Extension Key:  **memcached_diag**
+Extension Key:  **memcached_diag2**
 
 Copyright 2015, Jan Bartels, <j.bartels@arcor.de>
 
 **Please report all bugs and feature request at**
-**http://forge.typo3.org/projects/show/extension-memcached_diag**
+**https://github.com/JanBartels/memcacheddiag2/issues**
 
 
 

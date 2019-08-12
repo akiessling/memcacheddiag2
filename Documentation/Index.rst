@@ -15,7 +15,7 @@
 .. role::   php(code)
 
 ==================
-EXT: memcached_diag
+EXT: memcached_diag2
 ==================
 
 :Author:
@@ -28,7 +28,7 @@ EXT: memcached_diag
       
 
 :Changed:
-      2015-10-06 22:00:00
+      2019-08-12 22:00:00
 
 :Email:
       j.bartels@arcor.de
