@@ -79,7 +79,7 @@ class MemcacheController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 		$servers = array_unique( $servers );
 
 		if ( count( $servers ) === 0 ) {
-			return $null;
+			return null;
 		}
 
 		// add all memcached-servers
