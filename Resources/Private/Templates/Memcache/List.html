@@ -1,11 +1,19 @@
-{namespace mc=JBartels\Memcacheddiag2\ViewHelpers}
+<html
+        xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+        xmlns:mc="http://typo3.org/ns/JBartels/Memcacheddiag2/ViewHelpers"
+        data-namespace-typo3-fluid="true">
 
-<f:layout name="Default" />
+<f:layout name="Module"/>
 
 This Template is responsible for creating a table of Memcache objects.
+<f:section name="Content">
 
-<f:section name="content">
-<h1>Listing for Memcache</h1>
+    <f:be.pageRenderer
+            includeCssFiles="{0: 'EXT:memcacheddiag2/Resources/Public/CSS/style.css'}"
+    />
+
+
+<h1>Stats for Memcache</h1>
 
 <f:flashMessages />
 
@@ -15,7 +23,7 @@ This Template is responsible for creating a table of Memcache objects.
       <p>Keine Memcache-Server konfiguriert.</p>
     </f:then>
 	<f:else>
-		<table class="tx_memcacheddiag2" >
+		<table class="tx_memcacheddiag2 table table-striped table-condensed table-responsive w-auto" >
 
 			<tr>
 				<th><f:translate key="th.ipaddr" /></th>

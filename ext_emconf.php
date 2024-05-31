@@ -10,7 +10,7 @@
  * "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF['memcacheddiag2'] = array(
 	'title' => 'memcacheddiag2',
 	'description' => 'Displays diagnosis information about memcache',
 	'category' => 'module',
@@ -18,18 +18,9 @@ $EM_CONF[$_EXTKEY] = array(
 	'author' => 'Jan Bartels',
 	'author_email' => 'j.bartels@arcor.de',
 	'state' => 'stable',
-	'internal' => '',
-	'uploadfolder' => '0',
-	'createDirs' => '',
-	'clearCacheOnLoad' => 0,
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '7.6.0-9.5.99',
-			'php' => '7.0.0-7.2.99',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
+			'typo3' => '12.4.0-12.4.99',
 		),
 	),
 );

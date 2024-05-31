@@ -1,6 +1,9 @@
 <?php
+
 namespace JBartels\Memcacheddiag2\Controller;
 
+
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 
 /***************************************************************
  *
@@ -30,85 +33,104 @@ namespace JBartels\Memcacheddiag2\Controller;
 /**
  * MemcacheController
  */
-class MemcacheController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class MemcacheController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+{
+    protected ModuleTemplateFactory $moduleTemplateFactory;
 
-	/**
-	 * action list
-	 *
-	 * @return void
-	 */
-	public function listAction() {
-		$memcaches = $this->getCaches();
-		$this->view->assign('memcaches', $memcaches);
-	}
+    public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory)
+    {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
+    }
 
-	protected function getCaches() {
+    public function listAction(): \Psr\Http\Message\ResponseInterface
+    {
+        $memcaches = $this->getCaches();
+        $this->view->assign('memcaches', $memcaches);
 
-/*
-**  Example configuration:
-**
-**	'SYS' => array(
-**		'caching' => array(
-**			'cacheConfigurations' => array(
-**				'cache_hash' => array(
-**					'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\MemcachedBackend',
-**					'options' => array(
-**						'servers' => array(
-**							'localhost:11211',
-**						),
-**					),
-**				),
-*/
+        return $this->moduleTemplateFactory
+            ->create($this->request)
+            ->setFlashMessageQueue($this->getFlashMessageQueue())
+            ->assign('memcaches', $memcaches)
+            ->renderResponse('Memcache/List');
 
-		// any cache configured?
-		if ( !is_array( $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'] ) ) {
-			return null;
-		}
+        return $this->htmlResponse();
+    }
 
-		// collect all memcached-servers
-		$servers = array();
-		foreach ($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'] as $keyCache => $valueCache ) {
-			if (  $valueCache[ 'backend' ] == 'TYPO3\\CMS\\Core\\Cache\\Backend\\MemcachedBackend'
-			   || $valueCache[ 'backend' ] == 'JBartels\\MemcachedBackend\\MemcachedBackend'
-			   ) {
-				foreach( $valueCache[ 'options' ][ 'servers' ] as $server )
-					$servers[] = $server;
-			}
-		}
-		$servers[] = 'localhost:11211';
-		$servers = array_unique( $servers );
+    protected function getCaches(): ?array
+    {
 
-		if ( count( $servers ) === 0 ) {
-			return null;
-		}
+        /*
+        **  Example configuration:
+        **
+        **	'SYS' => array(
+        **		'caching' => array(
+        **			'cacheConfigurations' => array(
+        **				'cache_hash' => array(
+        **					'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\MemcachedBackend',
+        **					'options' => array(
+        **						'servers' => array(
+        **							'localhost:11211',
+        **						),
+        **					),
+        **				),
+        */
 
-		// add all memcached-servers
-		$usedPeclModule = '';
+        // any cache configured?
+        if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'])) {
+            return null;
+        }
+
+        // collect all memcached-servers
+
+        $backendsToCheck = [
+            'TYPO3\\CMS\\Core\\Cache\\Backend\\MemcachedBackend',
+            'JBartels\\MemcachedBackend\\MemcachedBackend',
+        ];
+
+        $servers = array();
+        foreach ($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations'] as $keyCache => $valueCache) {
+            if (isset($valueCache['backend'])
+                && in_array($valueCache['backend'], $backendsToCheck) && isset($valueCache['options']['servers'])
+            ) {
+                foreach ($valueCache['options']['servers'] as $server)
+                    $servers[] = $server;
+            }
+        }
+
+        if (count($servers) === 0) {
+            return null;
+        }
+
+        // add all memcached-servers
+        $usedPeclModule = '';
         if (extension_loaded('memcache')) {
-			$usedPeclModule = 'memcache';
-		} elseif (extension_loaded('memcached')) {
-			$usedPeclModule = 'memcached';
+            $usedPeclModule = 'memcache';
+        } elseif (extension_loaded('memcached')) {
+            $usedPeclModule = 'memcached';
         }
-		$memcachedPlugin = '\\' . ucfirst( $usedPeclModule );
-		$memcache_obj = new $memcachedPlugin;
+        $memcachedPlugin = '\\' . ucfirst($usedPeclModule);
 
-		foreach( $servers as $server ) {
-			$serveroptions = explode( ':', $server );
-		    $memcache_obj->addServer( $serveroptions[ 0 ], $serveroptions[ 1 ] );
-		}
+        // @phpstan-ignore-next-line
+        $memcache_obj = new $memcachedPlugin;
 
-        if ( $usedPeclModule == 'memcache' ) {
-		    $stats = $memcache_obj->getExtendedStats();
-		} elseif ( $usedPeclModule == 'memcached' ) {
-	    	$stats = $memcache_obj->getStats();
+        foreach ($servers as $server) {
+            $serveroptions = explode(':', $server);
+            $memcache_obj->addServer($serveroptions[0], $serveroptions[1]);
         }
 
-		$caches = array();
-		foreach( $servers as $server ) {
-			$caches[ $server ] = $stats[ $server ];
-		}
+        $stats = array();
+        if ($usedPeclModule == 'memcache') {
+            $stats = $memcache_obj->getExtendedStats();
+        } elseif ($usedPeclModule == 'memcached') {
+            $stats = $memcache_obj->getStats();
+        }
 
-		return $caches;
-	}
+        $caches = array();
+        foreach ($servers as $server) {
+            $caches[$server] = $stats[$server];
+        }
+
+        return $caches;
+    }
 
 }
